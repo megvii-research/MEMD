@@ -10,10 +10,10 @@
 
 ## 安装
 ```
-git clone https://github.com/megvii-research/electric_moped_detector.git
-cd electric_moped_detector
+git clone https://github.com/megvii-research/MEMD.git
+cd MEMD
 pip3 install -r requirements.txt
-cd electric_moped_detector/utils/lib_nms && bash compile.sh && cd ../../..
+cd memd/utils/lib_nms && bash compile.sh && cd ../../..
 ```
 
 ## 推理
