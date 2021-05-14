@@ -2,7 +2,7 @@ import onnxruntime
 import cv2 
 import numpy as np 
 
-from .utils import gpu_nms
+from . import gpu_nms
 
 def load_onnx_model(onnx_path): 
     onnx_session = onnxruntime.InferenceSession(onnx_path)

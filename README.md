@@ -1,7 +1,7 @@
 # Megvii Electric Moped Detector
 包含电动车检测 ONNX 模型及推理代码
 
-<img src="demo/elec_cycle_demo_1.gif" alt="gif1" height="320"> <img src="demo/elec_cycle_demo_2.gif" alt="gif2" height="320"> <img src="demo/elec_cycle_demo_3.gif" alt="gif3" height="320">
+<img src="docs/_static/elec_cycle_demo_1.gif" alt="gif1" height="320"> <img src="docs/_static/elec_cycle_demo_2.gif" alt="gif2" height="320"> <img src="docs/_static/elec_cycle_demo_3.gif" alt="gif3" height="320">
 
 [完整视频](https://v.qq.com/x/page/y32460fxgf6.html)
 
@@ -18,7 +18,7 @@ cd electric_moped_detector/utils/lib_nms && bash compile.sh && cd ../../..
 
 ## 推理
 ```
-python3 inference.py  --detector ./models/model.onnx --input-img ./demo/sample.jpg --model-json ./memd/config/config.json --output-path ./demo/output.jpg
+python3 scripts/inference.py  --detector ./models/model.onnx --input-img ./demo/input.jpg --model-json ./models/config.json --output-path ./demo/output.jpg
 
 --detector     ：onnx模型
 --input-img    ：输入图片地址

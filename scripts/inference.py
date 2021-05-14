@@ -1,10 +1,12 @@
+import sys 
 import json
 import argparse
 
 import cv2
 from loguru import logger
 
-from memd.onnx_model import load_onnx_model, run
+sys.path.append('.')
+from memd.utils import load_onnx_model, run
 
 
 def inference(detector_path, input_img, model_json, output_path):
@@ -57,10 +59,10 @@ def parse_args():
         "--detector", default="./models/model.onnx", help="The path to onnx detector. "
     )
     parser.add_argument(
-        "--input-img", default="./demo/sample.jpg", help="The path to demo image to inference. "
+        "--input-img", default="./demo/input.jpg", help="The path to demo image to inference. "
     )
     parser.add_argument(
-        "--model-json", default="./memd/config/config.json", help="The input path of model info(json). "
+        "--model-json", default="./models/config.json", help="The input path of model info(json). "
     )
     parser.add_argument(
         "--output-path", default="./demo/output.jpg", help="The path of output images. "
