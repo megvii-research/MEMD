@@ -1,0 +1,4 @@
+onnxruntime-gpu==1.2.0
+opencv-python 
+numpy 
+loguru

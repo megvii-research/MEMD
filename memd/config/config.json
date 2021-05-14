@@ -1,0 +1,5 @@
+{
+    "CLASS_NAMES": ["elec_cycle"], 
+    "SCORE_THRESH_TEST": 0.05, 
+    "NMS_THRESH_TEST": 0.6
+}
