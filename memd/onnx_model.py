@@ -84,14 +84,7 @@ def onnx_inference(onnx_session, num_classes, image, topk_candidates=1000):
 
     return boxes, scores, classes
 
-def run(
-    onnx_session,
-    image,
-    class_names,
-    score_thrs,
-    nms_thr=0.6,
-):
-
+def run(onnx_session, image, class_names, score_thrs, nms_thr=0.6):
     num_classes = len(class_names)
     boxes, scores, cls_idxs = onnx_inference(onnx_session, num_classes, image)
 

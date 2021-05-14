@@ -8,7 +8,6 @@ from memd.onnx_model import load_onnx_model, run
 
 
 def inference(detector_path, input_img, model_json, output_path):
-
     img = cv2.imread(input_img)
 
     with open(model_json) as file:
@@ -72,7 +71,6 @@ def parse_args():
 
 def main():
     args = parse_args() 
-    print(args)
     inference(args.detector, args.input_img, args.model_json, args.output_path)
 
 
