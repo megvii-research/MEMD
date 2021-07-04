@@ -14,49 +14,21 @@ def get_output_name(onnx_session):
         output_name.append(node.name)
     return output_name
 
-def transform(img, short_edge_size=800, max_size=1333, size_divisibility=32): 
-    h, w = img.shape[:2]
-
-    # resize
-    size = short_edge_size
-    scale = size * 1.0 / min(h, w)
-    if h < w:
-        new_h, new_w = size, scale * w
-    else:
-        new_h, new_w = scale * h, size
-    if max(new_h, new_w) > max_size:
-        scale = max_size * 1.0 / max(new_h, new_w)
-        new_h = new_h * scale
-        new_w = new_w * scale
-    new_w = int(new_w + 0.5)
-    new_h = int(new_h + 0.5)
-
-    assert img.shape[:2] == (h, w)
-
-    ret = cv2.resize(img, (new_w, new_h))
-
-    # padding
-    image_height, image_width = ret.shape[:2]
-    if size_divisibility > 0:
-        stride = size_divisibility
-        max_height = int(np.ceil(image_height / stride) * stride)
-        max_width = int(np.ceil(image_width / stride) * stride)
-
-    padding_size = (
-        (0, max_height - image_height),
-        (0, max_width - image_width),
-        (0, 0),
-    )
-    padded = np.pad(ret, padding_size, constant_values=0.0)
-    return padded, new_h * 1.0 / h
-
+def transform(image, target_shape=(960, 960)):
+    image_height, image_width, _ = image.shape
+    ratio_h = target_shape[1] * 1.0 / image_height
+    ratio_w = target_shape[0] * 1.0 / image_width
+    image = cv2.resize(image, target_shape)
+    return image, ratio_h, ratio_w
 
 def onnx_inference(onnx_session, num_classes, image, topk_candidates=1000): 
 
-    image, scale = transform(image)
-    image = image.astype(np.float32)
-
     output_name = get_output_name(onnx_session)
+
+    image, ratio_h, ratio_w = transform(image)
+    image = image.astype(np.float32)
+    image = np.expand_dims(image.transpose((2, 0, 1)), 0)
+
     scores, boxes = onnx_session.run(
         output_name, input_feed={"input": image}
     )
@@ -79,8 +51,10 @@ def onnx_inference(onnx_session, num_classes, image, topk_candidates=1000):
     classes = topk_idxs % num_classes
     boxes = boxes[shift_idxs]
 
-    # out: [boxes, scores]
-    boxes = boxes / scale
+    boxes[:, 0] /= ratio_w
+    boxes[:, 1] /= ratio_h
+    boxes[:, 2] /= ratio_w
+    boxes[:, 3] /= ratio_h
 
     return boxes, scores, classes
 

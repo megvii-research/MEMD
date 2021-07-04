@@ -3,7 +3,7 @@
 
 <img src="docs/_static/elec_cycle_demo_1.gif" alt="gif1" height="320"> <img src="docs/_static/elec_cycle_demo_2.gif" alt="gif2" height="320"> <img src="docs/_static/elec_cycle_demo_3.gif" alt="gif3" height="320">
 
-[完整视频](https://v.qq.com/x/page/y32460fxgf6.html)
+完整视频: [demo_1](https://v.qq.com/x/page/k3257ewacxa.html), [demo_2](https://v.qq.com/x/page/e3257kxhhut.html), [demo_3](https://v.qq.com/x/page/y32572ztgnt.html)
 
 ## 准备工作
 安装 cuda 10.1 以及 cudnn 7.6.3
